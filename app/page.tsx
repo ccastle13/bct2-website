@@ -73,9 +73,9 @@ export default function Home() {
             <Image
               src="/images/bct-logo-mark.png"
               alt="Borchardt Construction Technology"
-              width={160}
-              height={78}
-              className="h-11 w-auto object-contain sm:h-13"
+              width={170}
+              height={83}
+              className="h-12 w-auto object-contain sm:h-14"
               priority
             />
           </a>
