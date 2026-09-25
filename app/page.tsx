@@ -69,8 +69,15 @@ export default function Home() {
     <div className="min-h-screen bg-bct-ink text-white">
       <header className="sticky top-0 z-50 border-b border-white/10 bg-bct-ink/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-20 sm:px-8">
-          <a href="#top" className="text-lg font-semibold tracking-[0.18em]">
-            BCT
+          <a href="#top" className="flex items-center">
+            <Image
+              src="/images/bct-logo-transparent.png"
+              alt="Borchardt Construction Technology"
+              width={140}
+              height={58}
+              className="h-10 w-auto sm:h-[42px]"
+              priority
+            />
           </a>
           <nav className="hidden items-center gap-8 text-sm font-medium text-white/75 md:flex">
             <a href="#services" className="transition-colors hover:text-bct-yellow">
@@ -269,7 +276,16 @@ export default function Home() {
 
       <footer className="border-t border-white/10 py-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>Borchardt Construction Technology — preview build</p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/images/bct-logo-transparent.png"
+              alt="BCT"
+              width={80}
+              height={33}
+              className="h-6 w-auto opacity-70"
+            />
+            <p>Borchardt Construction Technology — preview build</p>
+          </div>
           <p>Private staging concept for owner review. Not a live production site.</p>
         </div>
       </footer>
