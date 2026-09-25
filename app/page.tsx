@@ -69,13 +69,13 @@ export default function Home() {
     <div className="min-h-screen bg-bct-ink text-white">
       <header className="sticky top-0 z-50 border-b border-white/10 bg-bct-ink/90 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:h-24 sm:px-8">
-          <a href="#top" className="flex items-center">
+          <a href="#top" className="flex items-center pb-1">
             <Image
               src="/images/bct-logo-mark.png"
               alt="Borchardt Construction Technology"
               width={200}
               height={116}
-              className="h-16 w-auto object-contain sm:h-20"
+              className="h-14 w-auto sm:h-16"
               priority
             />
           </a>
