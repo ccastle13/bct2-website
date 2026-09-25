@@ -71,11 +71,11 @@ export default function Home() {
         <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-5 py-3 sm:h-28 sm:px-8 sm:py-4">
           <a href="#top" className="flex items-center pb-3">
             <Image
-              src="/images/bct-logo-mark.png"
+              src="/images/bct-logo-transparent.png"
               alt="Borchardt Construction Technology"
-              width={160}
-              height={128}
-              className="h-14 w-auto object-contain sm:h-16"
+              width={140}
+              height={118}
+              className="h-12 w-auto object-contain sm:h-14"
               priority
             />
           </a>
@@ -278,11 +278,11 @@ export default function Home() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="flex items-center gap-3">
             <Image
-              src="/images/bct-logo-mark.png"
+              src="/images/bct-logo-transparent.png"
               alt="BCT"
-              width={75}
-              height={60}
-              className="h-8 w-auto opacity-80"
+              width={70}
+              height={59}
+              className="h-7 w-auto opacity-80"
             />
             <p>Borchardt Construction Technology — preview build</p>
           </div>
