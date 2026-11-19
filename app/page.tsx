@@ -3,9 +3,9 @@ import Image from "next/image";
 const services = [
   {
     number: "01",
-    title: "3D model building",
+    title: "3D machine-control models",
     description:
-      "Machine-control and rover site models structured around the project plans and the equipment workflow.",
+      "Machine-control and rover site models structured around project plans, grading surfaces, and equipment workflows.",
   },
   {
     number: "02",
@@ -15,22 +15,57 @@ const services = [
   },
   {
     number: "03",
-    title: "Drone data",
+    title: "Construction drafting",
+    description:
+      "Plan-based drafting support for construction teams, prepared around the agreed project scope and deliverable format.",
+  },
+  {
+    number: "04",
+    title: "3D land and surface modeling",
+    description:
+      "Digital terrain, grading, and surface models prepared from approved project files for field and office workflows.",
+  },
+  {
+    number: "05",
+    title: "Drone data processing",
     description:
       "Progress and surface-data workflows that help teams compare field conditions with project surfaces.",
   },
   {
-    number: "04",
-    title: "GPS consulting",
+    number: "06",
+    title: "GPS rover setup and calibration",
     description:
       "Setup, troubleshooting, calibration, localization, control, and crew training for supported systems.",
   },
 ];
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "ProfessionalService"],
+  name: "Borchardt Construction Technology",
+  url: "https://borchardtct.com",
+  logo: "https://borchardtct.com/images/bct-logo-transparent.png",
+  image: "https://borchardtct.com/images/bct-hero-earthwork.webp",
+  description:
+    "Construction drafting, 3D machine-control models, site takeoffs, drone data processing, and GPS support for construction teams.",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Construction technology services",
+    itemListElement: services.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+      },
+    })),
+  },
+};
+
 const pillars = [
   {
     title: "Build",
-    description: "3D models for machine control and rover workflows",
+    description: "3D machine-control, grading, and rover site models",
   },
   {
     title: "Measure",
@@ -67,6 +102,12 @@ const steps = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-bct-ink text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <header className="sticky top-0 z-50 border-b border-white/10 bg-bct-ink/90 backdrop-blur-md">
         <div className="mx-auto flex h-28 max-w-7xl items-center justify-between px-5 py-4 sm:h-32 sm:px-8 sm:py-5">
           <a href="#top" className="flex items-center pb-5">
@@ -121,11 +162,11 @@ export default function Home() {
                 Machine control · Takeoffs · GPS
               </p>
               <h1 className="max-w-[11ch] text-5xl leading-[0.95] font-semibold tracking-tight text-white sm:text-7xl lg:text-8xl">
-                Field-ready construction data.
+                3D construction models built for the field.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/72 sm:text-xl">
-                3D machine-control models, site takeoffs, drone data, and GPS support prepared for
-                practical use by construction teams.
+                3D machine-control models, construction drafting, site takeoffs, drone data
+                processing, and GPS support prepared for practical use by construction teams.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <a

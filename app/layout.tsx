@@ -12,9 +12,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteTitle = "Borchardt Construction Technology";
+const siteTitle = "3D Machine-Control Models & Site Takeoffs | BCT";
 const siteDescription =
-  "Field-ready construction data. 3D machine-control models, site takeoffs, drone data, and GPS support prepared for practical use by construction teams.";
+  "Borchardt Construction Technology provides 3D machine-control models, construction drafting, site takeoffs, drone data processing, and GPS support.";
 const siteUrl = "https://borchardtct.com";
 
 export const metadata: Metadata = {
