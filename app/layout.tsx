@@ -13,9 +13,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Borchardt Construction Technology",
+  metadataBase: new URL("https://borchardtct.com"),
+  title: "3D Machine-Control Models & Site Takeoffs | BCT",
   description:
-    "Field-ready construction data. 3D machine-control models, site takeoffs, drone data, and GPS support prepared for practical use by construction teams.",
+    "Borchardt Construction Technology provides 3D machine-control models, construction drafting, site takeoffs, drone data processing, and GPS support.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Borchardt Construction Technology",
+    title: "3D Machine-Control Models & Site Takeoffs | BCT",
+    description:
+      "Field-ready 3D models, construction drafting, site takeoffs, drone data processing, and GPS support for construction teams.",
+    images: [
+      {
+        url: "/images/bct-hero-earthwork.webp",
+        alt: "Construction earthwork project",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "3D Machine-Control Models & Site Takeoffs | BCT",
+    description:
+      "Field-ready 3D models, construction drafting, site takeoffs, drone data processing, and GPS support for construction teams.",
+    images: ["/images/bct-hero-earthwork.webp"],
+  },
   robots: {
     index: false,
     follow: false,
