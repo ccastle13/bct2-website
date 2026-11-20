@@ -1,0 +1,20 @@
+# Borchardt Construction Technology
+
+> Borchardt Construction Technology (BCT) provides construction drafting and field-ready construction data services.
+
+Canonical website: https://borchardtct.com
+
+## Services
+
+- 3D machine-control and rover site models structured around project plans, grading surfaces, and equipment workflows.
+- Site takeoffs for earthwork, paving, concrete, pipe, and associated materials from approved project files.
+- Construction drafting prepared around an agreed project scope and deliverable format.
+- 3D land, grading, terrain, and surface modeling from approved project files.
+- Drone progress and surface-data processing workflows.
+- GPS rover setup, troubleshooting, calibration, localization, control, and crew training for supported systems.
+
+## Source and review status
+
+- Service details are limited to statements published on the BCT website or approved for its launch draft.
+- Locations, equipment-brand compatibility, certifications, project results, reviews, and company history require owner approval before publication.
+- The website is the canonical source for current BCT service information.
