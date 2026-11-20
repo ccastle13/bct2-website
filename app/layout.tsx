@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     url: `${siteUrl}/`,
     title: siteTitle,
     description: siteDescription,
-    siteName: siteTitle,
+    siteName: "Borchardt Construction Technology",
     images: [
       {
         url: "/images/bct-hero-earthwork.webp",

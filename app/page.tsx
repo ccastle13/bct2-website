@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import LeadForm from "./lead-form";
 import { services } from "./services/service-data";
 
 const organizationJsonLd = {
@@ -93,12 +94,12 @@ export default function Home() {
             <a href="#approach" className="transition-colors hover:text-bct-yellow">
               Approach
             </a>
-            <a href="#start" className="transition-colors hover:text-bct-yellow">
+            <a href="#start-a-project" className="transition-colors hover:text-bct-yellow">
               Contact
             </a>
           </nav>
           <a
-            href="#start"
+            href="#start-a-project"
             className="inline-flex h-10 items-center rounded-full bg-bct-yellow px-5 text-sm font-semibold text-black transition-colors hover:bg-white sm:h-11"
           >
             Start a project
@@ -133,7 +134,7 @@ export default function Home() {
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <a
-                  href="#start"
+                  href="#start-a-project"
                   className="inline-flex h-12 items-center rounded-full bg-bct-yellow px-7 text-sm font-semibold text-black transition-colors hover:bg-white sm:h-14 sm:text-base"
                 >
                   Start a project
@@ -267,17 +268,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="start" className="bg-bct-yellow py-16 text-black sm:py-20">
-          <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 sm:px-8 lg:flex-row lg:items-center">
-            <h2 className="max-w-[12ch] text-4xl leading-none font-semibold tracking-tight sm:text-6xl">
-              Have a project to review?
-            </h2>
-            <a
-              href="mailto:arek@borchardtct.com?subject=Website%20inquiry"
-              className="inline-flex h-14 items-center rounded-full bg-black px-8 text-base font-semibold text-white transition-colors hover:bg-bct-ink-soft"
-            >
-              Start a project
-            </a>
+        <section id="start-a-project" className="scroll-mt-28 bg-bct-yellow py-16 text-black sm:scroll-mt-32 sm:py-24">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+            <div className="max-w-lg lg:pt-4">
+              <p className="mb-3 text-xs font-semibold tracking-[0.22em] uppercase">Start a project</p>
+              <h2 className="max-w-[12ch] text-4xl leading-none font-semibold tracking-tight sm:text-6xl">
+                Have a project to review?
+              </h2>
+              <p className="mt-6 max-w-md text-base leading-relaxed text-black/70 sm:text-lg">
+                Tell us what you need, where the project is, and when you need it.
+              </p>
+            </div>
+            <LeadForm />
           </div>
         </section>
       </main>
