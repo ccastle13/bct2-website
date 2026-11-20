@@ -1,43 +1,6 @@
 import Image from "next/image";
-
-const services = [
-  {
-    number: "01",
-    title: "3D machine-control models",
-    description:
-      "Machine-control and rover site models structured around project plans, grading surfaces, and equipment workflows.",
-  },
-  {
-    number: "02",
-    title: "Site takeoffs",
-    description:
-      "Quantity takeoffs for earthwork, paving, concrete, pipe, and associated materials from approved project files.",
-  },
-  {
-    number: "03",
-    title: "Construction drafting",
-    description:
-      "Plan-based drafting support for construction teams, prepared around the agreed project scope and deliverable format.",
-  },
-  {
-    number: "04",
-    title: "3D land and surface modeling",
-    description:
-      "Digital terrain, grading, and surface models prepared from approved project files for field and office workflows.",
-  },
-  {
-    number: "05",
-    title: "Drone data processing",
-    description:
-      "Progress and surface-data workflows that help teams compare field conditions with project surfaces.",
-  },
-  {
-    number: "06",
-    title: "GPS rover setup and calibration",
-    description:
-      "Setup, troubleshooting, calibration, localization, control, and crew training for supported systems.",
-  },
-];
+import Link from "next/link";
+import { services } from "./services/service-data";
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -218,14 +181,18 @@ export default function Home() {
 
             <div className="grid gap-4 md:grid-cols-2">
               {services.map((service) => (
-                <article
-                  key={service.number}
-                  className="rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-colors hover:border-white/25 sm:p-9"
+                <Link
+                  key={service.slug}
+                  href={`/services/${service.slug}`}
+                  className="group rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-colors hover:border-bct-yellow/60 sm:p-9"
                 >
                   <p className="mb-5 font-mono text-sm text-bct-yellow">{service.number}</p>
                   <h3 className="mb-4 text-2xl tracking-tight sm:text-3xl">{service.title}</h3>
                   <p className="max-w-md text-base leading-relaxed text-white/60">{service.description}</p>
-                </article>
+                  <p className="mt-6 text-sm font-semibold text-white/75 transition-colors group-hover:text-bct-yellow">
+                    View service details →
+                  </p>
+                </Link>
               ))}
             </div>
           </div>
