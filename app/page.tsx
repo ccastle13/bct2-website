@@ -265,7 +265,7 @@ export default function Home() {
               Have a project to review?
             </h2>
             <a
-              href="mailto:chris@castle-itsolutions.com"
+              href="mailto:arek@borchardtct.com?subject=Website%20inquiry"
               className="inline-flex h-14 items-center rounded-full bg-black px-8 text-base font-semibold text-white transition-colors hover:bg-bct-ink-soft"
             >
               Start a project
@@ -284,9 +284,9 @@ export default function Home() {
               height={59}
               className="h-7 w-auto opacity-80"
             />
-            <p>Borchardt Construction Technology — preview build</p>
+            <p>Borchardt Construction Technology</p>
           </div>
-          <p>Private staging concept for owner review. Not a live production site.</p>
+          <p>Field-ready construction data and GPS support.</p>
         </div>
       </footer>
     </div>
