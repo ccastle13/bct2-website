@@ -52,7 +52,7 @@ Do not deploy until the Graph app and all bindings above exist. The deploy helpe
 - `borchardtct.com/*`
 - `www.borchardtct.com/*`
 
-It refuses to upload if the bindings or routes differ. It downloads the current raw Worker package, settings, routes, and deployed version ID to a mode-0600 timestamped backup under `~/.aidevops/.agent-workspace/backups/bct-site-proxy/`. The code-only Cloudflare endpoint preserves the configured bindings. After upload, the helper confirms the bindings and routes are unchanged, checks `GET /` for 200, and sends an empty `POST /api/lead` that must return 400. It automatically activates the backed-up version if upload validation or either smoke test fails.
+It refuses to upload if the bindings or routes differ. It downloads the current raw Worker package, settings, routes, and deployed version ID to a mode-0600 timestamped backup under `~/.aidevops/.agent-workspace/backups/bct-site-proxy/`. The code-only Cloudflare endpoint preserves the configured bindings only when the upload metadata sets `keep_bindings` for `secret_text` and `ratelimit`. `deploy.py` does that and does not resend secret values. After upload, the helper confirms the bindings and routes are unchanged, checks `GET /` for 200, and sends an empty `POST /api/lead` that must return 400. It automatically activates the backed-up version if upload validation or either smoke test fails.
 
 Run the non-mutating check first:
 

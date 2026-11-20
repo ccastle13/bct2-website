@@ -106,8 +106,19 @@ class Cloudflare:
 
     def upload_content(self) -> None:
         source = WORKER_FILE.read_bytes()
+        settings = self.settings()
+        metadata: dict[str, Any] = {
+            "main_module": WORKER_FILE.name,
+            # Omitting this resets bindings on the content endpoint. Keep both
+            # secret text and the rate-limit binding; do not resend secret values.
+            "keep_bindings": ["secret_text", "ratelimit"],
+        }
+        if settings.get("compatibility_date"):
+            metadata["compatibility_date"] = settings["compatibility_date"]
+        if settings.get("compatibility_flags"):
+            metadata["compatibility_flags"] = settings["compatibility_flags"]
         files = {
-            "metadata": (None, json.dumps({"main_module": WORKER_FILE.name}), "application/json"),
+            "metadata": (None, json.dumps(metadata), "application/json"),
             WORKER_FILE.name: (WORKER_FILE.name, source, "application/javascript+module"),
         }
         self.request(
@@ -238,7 +249,10 @@ def deploy(cf: Cloudflare, backup_path: Path, backup: dict[str, Any]) -> None:
         after_bindings = binding_snapshot(cf.settings())
         after_routes = route_snapshot(cf.routes())
         if after_bindings != before_bindings:
-            raise RuntimeError("Worker bindings changed during the code-only upload")
+            raise RuntimeError(
+                "Worker bindings changed during the code-only upload: "
+                f"before={before_bindings} after={after_bindings}"
+            )
         if after_routes != before_routes:
             raise RuntimeError("Worker routes changed during the code-only upload")
 
