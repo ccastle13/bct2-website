@@ -1,37 +1,35 @@
 import Image from "next/image";
+import Link from "next/link";
 import LeadForm from "./lead-form";
+import { services } from "./services/service-data";
 
-const services = [
-  {
-    number: "01",
-    title: "3D model building",
-    description:
-      "Machine-control and rover site models structured around the project plans and the equipment workflow.",
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "ProfessionalService"],
+  name: "Borchardt Construction Technology",
+  url: "https://borchardtct.com",
+  logo: "https://borchardtct.com/images/bct-logo-transparent.png",
+  image: "https://borchardtct.com/images/bct-hero-earthwork.webp",
+  description:
+    "Construction drafting, 3D machine-control models, site takeoffs, drone data processing, and GPS support for construction teams.",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Construction technology services",
+    itemListElement: services.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+      },
+    })),
   },
-  {
-    number: "02",
-    title: "Site takeoffs",
-    description:
-      "Quantity takeoffs for earthwork, paving, concrete, pipe, and associated materials from approved project files.",
-  },
-  {
-    number: "03",
-    title: "Drone data",
-    description:
-      "Progress and surface-data workflows that help teams compare field conditions with project surfaces.",
-  },
-  {
-    number: "04",
-    title: "GPS consulting",
-    description:
-      "Setup, troubleshooting, calibration, localization, control, and crew training for supported systems.",
-  },
-];
+};
 
 const pillars = [
   {
     title: "Build",
-    description: "3D models for machine control and rover workflows",
+    description: "3D machine-control, grading, and rover site models",
   },
   {
     title: "Measure",
@@ -68,6 +66,12 @@ const steps = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-bct-ink text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <header className="sticky top-0 z-50 border-b border-white/10 bg-bct-ink/90 backdrop-blur-md">
         <div className="mx-auto flex h-28 max-w-7xl items-center justify-between px-5 py-4 sm:h-32 sm:px-8 sm:py-5">
           <a href="#top" className="flex items-center pb-5">
@@ -122,11 +126,11 @@ export default function Home() {
                 Machine control · Takeoffs · GPS
               </p>
               <h1 className="max-w-[11ch] text-5xl leading-[0.95] font-semibold tracking-tight text-white sm:text-7xl lg:text-8xl">
-                Field-ready construction data.
+                3D construction models built for the field.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/72 sm:text-xl">
-                3D machine-control models, site takeoffs, drone data, and GPS support prepared for
-                practical use by construction teams.
+                3D machine-control models, construction drafting, site takeoffs, drone data
+                processing, and GPS support prepared for practical use by construction teams.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <a
@@ -178,14 +182,18 @@ export default function Home() {
 
             <div className="grid gap-4 md:grid-cols-2">
               {services.map((service) => (
-                <article
-                  key={service.number}
-                  className="rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-colors hover:border-white/25 sm:p-9"
+                <Link
+                  key={service.slug}
+                  href={`/services/${service.slug}`}
+                  className="group rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-colors hover:border-bct-yellow/60 sm:p-9"
                 >
                   <p className="mb-5 font-mono text-sm text-bct-yellow">{service.number}</p>
                   <h3 className="mb-4 text-2xl tracking-tight sm:text-3xl">{service.title}</h3>
                   <p className="max-w-md text-base leading-relaxed text-white/60">{service.description}</p>
-                </article>
+                  <p className="mt-6 text-sm font-semibold text-white/75 transition-colors group-hover:text-bct-yellow">
+                    View service details →
+                  </p>
+                </Link>
               ))}
             </div>
           </div>
