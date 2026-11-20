@@ -12,38 +12,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteTitle = "3D Machine-Control Models & Site Takeoffs | BCT";
+const siteDescription =
+  "Borchardt Construction Technology provides 3D machine-control models, construction drafting, site takeoffs, drone data processing, and GPS support.";
+const siteUrl = "https://borchardtct.com";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://borchardtct.com"),
-  title: "3D Machine-Control Models & Site Takeoffs | BCT",
-  description:
-    "Borchardt Construction Technology provides 3D machine-control models, construction drafting, site takeoffs, drone data processing, and GPS support.",
+  metadataBase: new URL(siteUrl),
+  title: siteTitle,
+  description: siteDescription,
   alternates: {
-    canonical: "/",
+    canonical: `${siteUrl}/`,
   },
   openGraph: {
     type: "website",
-    url: "/",
+    url: `${siteUrl}/`,
+    title: siteTitle,
+    description: siteDescription,
     siteName: "Borchardt Construction Technology",
-    title: "3D Machine-Control Models & Site Takeoffs | BCT",
-    description:
-      "Field-ready 3D models, construction drafting, site takeoffs, drone data processing, and GPS support for construction teams.",
     images: [
       {
         url: "/images/bct-hero-earthwork.webp",
-        alt: "Construction earthwork project",
+        width: 1920,
+        height: 1080,
+        alt: "Construction earthwork site",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "3D Machine-Control Models & Site Takeoffs | BCT",
-    description:
-      "Field-ready 3D models, construction drafting, site takeoffs, drone data processing, and GPS support for construction teams.",
+    title: siteTitle,
+    description: siteDescription,
     images: ["/images/bct-hero-earthwork.webp"],
-  },
-  robots: {
-    index: false,
-    follow: false,
   },
 };
 

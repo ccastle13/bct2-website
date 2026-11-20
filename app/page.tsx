@@ -1,11 +1,12 @@
 import Image from "next/image";
+import LeadForm from "./lead-form";
 
 const services = [
   {
     number: "01",
-    title: "3D machine-control models",
+    title: "3D model building",
     description:
-      "Machine-control and rover site models structured around project plans, grading surfaces, and equipment workflows.",
+      "Machine-control and rover site models structured around the project plans and the equipment workflow.",
   },
   {
     number: "02",
@@ -15,25 +16,13 @@ const services = [
   },
   {
     number: "03",
-    title: "Construction drafting",
-    description:
-      "Plan-based drafting support for construction teams, prepared around the agreed project scope and deliverable format.",
-  },
-  {
-    number: "04",
-    title: "3D land and surface modeling",
-    description:
-      "Digital terrain, grading, and surface models prepared from approved project files for field and office workflows.",
-  },
-  {
-    number: "05",
-    title: "Drone data processing",
+    title: "Drone data",
     description:
       "Progress and surface-data workflows that help teams compare field conditions with project surfaces.",
   },
   {
-    number: "06",
-    title: "GPS rover setup and calibration",
+    number: "04",
+    title: "GPS consulting",
     description:
       "Setup, troubleshooting, calibration, localization, control, and crew training for supported systems.",
   },
@@ -51,21 +40,69 @@ const organizationJsonLd = {
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Construction technology services",
-    itemListElement: services.map((service) => ({
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: service.title,
-        description: service.description,
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "3D machine-control models",
+          description:
+            "Machine-control and rover site models structured around project plans, grading surfaces, and equipment workflows.",
+        },
       },
-    })),
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Site takeoffs",
+          description:
+            "Quantity takeoffs for earthwork, paving, concrete, pipe, and associated materials from approved project files.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Construction drafting",
+          description:
+            "Plan-based drafting support for construction teams, prepared around the agreed project scope and deliverable format.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "3D land and surface modeling",
+          description:
+            "Digital terrain, grading, and surface models prepared from approved project files for field and office workflows.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Drone data processing",
+          description:
+            "Progress and surface-data workflows that help teams compare field conditions with project surfaces.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "GPS rover setup and calibration",
+          description:
+            "Setup, troubleshooting, calibration, localization, control, and crew training for supported systems.",
+        },
+      },
+    ],
   },
 };
 
 const pillars = [
   {
     title: "Build",
-    description: "3D machine-control, grading, and rover site models",
+    description: "3D models for machine control and rover workflows",
   },
   {
     title: "Measure",
@@ -130,12 +167,12 @@ export default function Home() {
             <a href="#approach" className="transition-colors hover:text-bct-yellow">
               Approach
             </a>
-            <a href="#start" className="transition-colors hover:text-bct-yellow">
+            <a href="#start-a-project" className="transition-colors hover:text-bct-yellow">
               Contact
             </a>
           </nav>
           <a
-            href="#start"
+            href="#start-a-project"
             className="inline-flex h-10 items-center rounded-full bg-bct-yellow px-5 text-sm font-semibold text-black transition-colors hover:bg-white sm:h-11"
           >
             Start a project
@@ -162,15 +199,15 @@ export default function Home() {
                 Machine control · Takeoffs · GPS
               </p>
               <h1 className="max-w-[11ch] text-5xl leading-[0.95] font-semibold tracking-tight text-white sm:text-7xl lg:text-8xl">
-                3D construction models built for the field.
+                Field-ready construction data.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/72 sm:text-xl">
-                3D machine-control models, construction drafting, site takeoffs, drone data
-                processing, and GPS support prepared for practical use by construction teams.
+                3D machine-control models, site takeoffs, drone data, and GPS support prepared for
+                practical use by construction teams.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <a
-                  href="#start"
+                  href="#start-a-project"
                   className="inline-flex h-12 items-center rounded-full bg-bct-yellow px-7 text-sm font-semibold text-black transition-colors hover:bg-white sm:h-14 sm:text-base"
                 >
                   Start a project
@@ -300,17 +337,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="start" className="bg-bct-yellow py-16 text-black sm:py-20">
-          <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 sm:px-8 lg:flex-row lg:items-center">
-            <h2 className="max-w-[12ch] text-4xl leading-none font-semibold tracking-tight sm:text-6xl">
-              Have a project to review?
-            </h2>
-            <a
-              href="mailto:chris@castle-itsolutions.com"
-              className="inline-flex h-14 items-center rounded-full bg-black px-8 text-base font-semibold text-white transition-colors hover:bg-bct-ink-soft"
-            >
-              Start a project
-            </a>
+        <section id="start-a-project" className="scroll-mt-28 bg-bct-yellow py-16 text-black sm:scroll-mt-32 sm:py-24">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+            <div className="max-w-lg lg:pt-4">
+              <p className="mb-3 text-xs font-semibold tracking-[0.22em] uppercase">Start a project</p>
+              <h2 className="max-w-[12ch] text-4xl leading-none font-semibold tracking-tight sm:text-6xl">
+                Have a project to review?
+              </h2>
+              <p className="mt-6 max-w-md text-base leading-relaxed text-black/70 sm:text-lg">
+                Tell us what you need, where the project is, and when you need it.
+              </p>
+            </div>
+            <LeadForm />
           </div>
         </section>
       </main>
@@ -325,9 +363,9 @@ export default function Home() {
               height={59}
               className="h-7 w-auto opacity-80"
             />
-            <p>Borchardt Construction Technology — preview build</p>
+            <p>Borchardt Construction Technology</p>
           </div>
-          <p>Private staging concept for owner review. Not a live production site.</p>
+          <p>Field-ready construction data and GPS support.</p>
         </div>
       </footer>
     </div>
