@@ -171,8 +171,7 @@ export default function Home() {
                 Practical support from plan set to field.
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
-                BCT supports contractors with construction data and field technology. Final service
-                descriptions and capabilities remain subject to owner review before launch.
+                BCT supports contractors with construction data and field technology.
               </p>
             </div>
 
@@ -203,8 +202,7 @@ export default function Home() {
                 </h2>
               </div>
               <p className="max-w-md text-base leading-relaxed text-white/60">
-                These images come from the existing BCT project archive. Services, locations, scope,
-                and results will be added only after owner verification.
+                These images come from the existing BCT project archive.
               </p>
             </div>
 
@@ -224,9 +222,7 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                     <h3 className="text-2xl tracking-tight uppercase sm:text-3xl">{project.name}</h3>
-                    <p className="mt-2 text-sm text-white/65">
-                      Project archive — details pending approval
-                    </p>
+                    <p className="mt-2 text-sm text-white/65">Project archive</p>
                   </div>
                 </article>
               ))}
