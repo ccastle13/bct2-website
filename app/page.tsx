@@ -1,5 +1,39 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import LeadForm from "./lead-form";
+
+const homeUrl = "https://borchardtct.com/";
+const siteName = "Borchardt Construction Technology";
+const logoPath = "/images/bct-logo-transparent.png";
+const title = "3D Machine-Control Models & Site Takeoffs | BCT";
+const description =
+  "Borchardt Construction Technology prepares 3D machine-control models, site takeoffs, and drone data and provides GPS support for construction teams.";
+const featuredImage = {
+  url: "/images/bct-hero-earthwork.webp",
+  width: 1920,
+  height: 1080,
+  alt: "Overhead view of a bulldozer beside a row of rocks and tracks in the soil",
+};
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: homeUrl },
+  openGraph: {
+    type: "website",
+    url: homeUrl,
+    siteName,
+    title,
+    description,
+    images: [featuredImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [featuredImage],
+  },
+};
 
 const services = [
   {
@@ -28,75 +62,24 @@ const services = [
   },
 ];
 
-const organizationJsonLd = {
+const homeJsonLd = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "ProfessionalService"],
-  name: "Borchardt Construction Technology",
-  url: "https://borchardtct.com",
-  logo: "https://borchardtct.com/images/bct-logo-transparent.png",
-  image: "https://borchardtct.com/images/bct-hero-earthwork.webp",
-  description:
-    "Construction drafting, 3D machine-control models, site takeoffs, drone data processing, and GPS support for construction teams.",
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Construction technology services",
-    itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "3D machine-control models",
-          description:
-            "Machine-control and rover site models structured around project plans, grading surfaces, and equipment workflows.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Site takeoffs",
-          description:
-            "Quantity takeoffs for earthwork, paving, concrete, pipe, and associated materials from approved project files.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Construction drafting",
-          description:
-            "Plan-based drafting support for construction teams, prepared around the agreed project scope and deliverable format.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "3D land and surface modeling",
-          description:
-            "Digital terrain, grading, and surface models prepared from approved project files for field and office workflows.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Drone data processing",
-          description:
-            "Progress and surface-data workflows that help teams compare field conditions with project surfaces.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "GPS rover setup and calibration",
-          description:
-            "Setup, troubleshooting, calibration, localization, control, and crew training for supported systems.",
-        },
-      },
-    ],
-  },
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${homeUrl}#organization`,
+      name: siteName,
+      url: homeUrl,
+      logo: new URL(logoPath, homeUrl).href,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${homeUrl}#website`,
+      name: siteName,
+      url: homeUrl,
+      publisher: { "@id": `${homeUrl}#organization` },
+    },
+  ],
 };
 
 const pillars = [
@@ -115,10 +98,22 @@ const pillars = [
 ];
 
 const projects = [
-  { name: "Cranefield subdivision", image: "/images/bct-hero-earthwork.webp" },
-  { name: "Pappys Landing", image: "/images/bct-hero-loader.webp" },
-  { name: "Norterra", image: "/images/bct-hero-excavator.webp" },
-  { name: "Hope Springs", image: "/images/bct-hero-earthwork.webp" },
+  { name: "Cranefield subdivision", image: featuredImage },
+  {
+    name: "Pappys Landing",
+    image: {
+      url: "/images/bct-hero-loader.webp",
+      alt: "Overhead view of a wheel loader between ridges of soil and a gravel pile",
+    },
+  },
+  {
+    name: "Norterra",
+    image: {
+      url: "/images/bct-hero-excavator.webp",
+      alt: "Overhead view of a tracked excavator with its bucket extended toward a cut in the soil",
+    },
+  },
+  { name: "Hope Springs", image: featuredImage },
 ];
 
 const steps = [
@@ -142,15 +137,15 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(homeJsonLd).replace(/</g, "\\u003c"),
         }}
       />
       <header className="sticky top-0 z-50 border-b border-white/10 bg-bct-ink/90 backdrop-blur-md">
         <div className="mx-auto flex h-28 max-w-7xl items-center justify-between px-5 py-4 sm:h-32 sm:px-8 sm:py-5">
           <a href="#top" className="flex items-center pb-5">
             <Image
-              src="/images/bct-logo-transparent.png"
-              alt="Borchardt Construction Technology"
+              src={logoPath}
+              alt="Borchardt Construction Technology logo"
               width={190}
               height={160}
               className="h-18 w-auto object-contain sm:h-20"
@@ -183,8 +178,8 @@ export default function Home() {
       <main id="top">
         <section className="relative isolate min-h-[88vh] overflow-hidden border-b border-white/10">
           <Image
-            src="/images/bct-hero-earthwork.webp"
-            alt=""
+            src={featuredImage.url}
+            alt={featuredImage.alt}
             fill
             priority
             className="object-cover object-center"
@@ -290,8 +285,8 @@ export default function Home() {
                   className="group relative min-h-[18rem] overflow-hidden rounded-2xl border border-white/10 bg-bct-ink-soft sm:min-h-[22rem]"
                 >
                   <Image
-                    src={project.image}
-                    alt={`${project.name} project visualization`}
+                    src={project.image.url}
+                    alt={project.image.alt}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -353,8 +348,8 @@ export default function Home() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="flex items-center gap-3">
             <Image
-              src="/images/bct-logo-transparent.png"
-              alt="BCT"
+              src={logoPath}
+              alt="Borchardt Construction Technology logo"
               width={70}
               height={59}
               className="h-7 w-auto opacity-80"
