@@ -45,7 +45,7 @@ if its smoke checks fail.
 | Form API | [Static export only supports build-time `GET` Route Handlers](https://nextjs.org/docs/app/guides/static-exports#route-handlers), not a live `POST`. Keep the existing Worker endpoint at the apex; Pages need not run Functions. If the apex later serves directly from Pages, keep a path-specific Worker route for the API (see below) rather than adding a second live mail sender. [Pages Functions](https://developers.cloudflare.com/pages/functions/routing/) can serve request-time endpoints, but porting the handler would require a separate parity and [binding compatibility](https://developers.cloudflare.com/pages/functions/bindings/) review. |
 | Images and fonts | The [homepage](../app/page.tsx) uses `next/image` with local assets. The [default image optimizer is not available in a static export](https://nextjs.org/docs/app/guides/static-exports#image-optimization). Start with `images.unoptimized: true` ([Image API](https://nextjs.org/docs/app/api-reference/components/image#unoptimized)) and use appropriately sized, pre-optimized WebP files; compare transferred bytes and mobile rendering. A custom loader is an option if responsive image delivery is needed. Geist and Geist Mono use [`next/font`](https://nextjs.org/docs/app/api-reference/components/font); verify the build can obtain the font files and the exported site serves them locally. |
 | Headers and indexing | [Static export does not implement `next.config` headers](https://nextjs.org/docs/app/guides/static-exports#unsupported-features). Replace the old host rules in the export with host-specific [Pages `_headers`](https://developers.cloudflare.com/pages/configuration/headers/) for the direct Pages hostname. Check non-public hosts have `noindex`, including [preview deployments](https://developers.cloudflare.com/pages/configuration/preview-deployments/); keep disallowed previews private where needed. The public proxy should continue removing the origin's `X-Robots-Tag`. Do not put an unconditional `noindex` on public Pages responses if the apex switches to direct hosting. |
-| Adapter alternatives | The archived [`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) adapter is not the baseline for this Next.js version. [OpenNext on Cloudflare](https://developers.cloudflare.com/workers/framework-guides/web-apps/opennext/) is a **Workers**, not Pages, deployment route for SSR or Next.js Route Handlers. It uses `nodejs_compat` with compatibility date `2024-09-23` or later and can optimize images using Cloudflare Images. If request-time Next.js features become necessary, test the exact pinned version and adapter in a Workers preview before changing the target. |
+| Adapter alternatives | The archived [`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) adapter is not the baseline for this Next.js version. [OpenNext on Cloudflare](https://developers.cloudflare.com/workers/framework-guides/web-apps/opennext/) is a **Workers**, not Pages, deployment route for SSR or Next.js Route Handlers. It [supports Next.js 16](https://opennext.js.org/cloudflare), uses `nodejs_compat` with compatibility date `2024-09-23` or later, and can optimize images using Cloudflare Images. If request-time Next.js features become necessary, test the exact pinned version and adapter in a Workers preview before changing the target. |
 
 ### Environment and binding inventory (names only)
 
@@ -76,9 +76,10 @@ if its smoke checks fail.
 2. **Build and stage Pages in parallel.** Use the locked dependencies and the
    pinned Node version. Deploy `out` to a non-production [Pages preview](https://developers.cloudflare.com/pages/configuration/preview-deployments/)
    under separate implementation approval. Test static routes, rendered
-   content, and the noindex policy there. On an isolated proxy/test hostname
-   with a mock mail transport or a test-only mailbox, exercise the same-origin
-   form separately. A bare Pages preview is not expected to serve `/api/lead`.
+   content, and the noindex policy there. Exercise the same-origin form with
+   an isolated copy of the Worker configured to recognize the test hostname
+   and use a mock mail transport or test-only mailbox. A bare Pages preview
+   is not expected to serve `/api/lead`.
    Promote the verified static build to the stable Pages production hostname
    (`<project>.pages.dev`) while production still points to Vercel. A
    protected preview or an expiring preview URL is not a production origin.
@@ -118,11 +119,12 @@ existing Worker continues to serve traffic.
 1. Stage the custom domain and verify active TLS with the broad Worker route
    still serving production. Save the working DNS and route configuration.
 2. Add and verify a more-specific `borchardtct.com/api/lead` Worker route on
-   proxied DNS before removing the broad apex route. [Cloudflare route
-   precedence and matching](https://developers.cloudflare.com/workers/configuration/routing/routes/)
-   are sensitive to the exact pattern and query strings. Rehearse with the
-   unchanged form URL and ensure unexpected methods/URLs cannot loop back
-   through the Worker. Keep `www` on its existing redirect route.
+   proxied DNS before removing the broad apex route. The exact route matches
+   the current query-free form URL. [Cloudflare route matching](https://developers.cloudflare.com/workers/configuration/routing/routes/)
+   requires a trailing wildcard to match requests with query strings; if one
+   is needed later, retain the Worker's exact path and method checks so that
+   lookalike paths cannot send mail. Rehearse before cutover and make sure
+   unmatched methods or paths never loop. Keep `www` on its redirect route.
 3. Only when the custom domain and narrow lead route are healthy, remove the
    broad apex route so normal traffic goes straight to Pages. Rerun public
    checks, including that Pages headers do not block indexing on the apex.
@@ -173,8 +175,9 @@ quote and usage before approving any spend.
 | Option | Base cost and relevant limits |
 | --- | --- |
 | Vercel Pro | [$20/month](https://vercel.com/pricing), one deploying seat and $20 included usage credit. Extra deploying seats and usage can add charges. This is the comparison baseline and a commercial fallback candidate. |
-| Pages Free + Workers Free | $0 base; [Pages Free](https://developers.cloudflare.com/pages/platform/limits/) allows 500 builds/month and one concurrent build. [Pages static requests not invoking Functions](https://developers.cloudflare.com/pages/functions/pricing/) are free and unlimited, but the existing broad proxy still invokes a Worker for site and asset requests. Workers and Pages Functions share the [100,000 requests/day free allowance and 10 ms CPU/invocation limit](https://developers.cloudflare.com/workers/platform/pricing/#workers). |
-| Pages + Workers Paid | Static Pages serving remains free. [Workers Paid Standard](https://developers.cloudflare.com/workers/platform/pricing/#workers) starts at $5/account/month, with 10 million requests and 30 million CPU-ms included per month. Overages are $0.30 per additional million requests and $0.02 per additional million CPU-ms. The separate Cloudflare zone plans raise [Pages build quotas](https://developers.cloudflare.com/pages/platform/limits/) (Pro: 5,000 builds/month and five concurrent builds); Workers Paid alone is not that zone upgrade. |
+| Pages Free + Workers Free | $0 base; [Pages Free](https://developers.cloudflare.com/pages/platform/limits/) allows 500 builds/month and one concurrent build. [Pages static requests not invoking Functions](https://developers.cloudflare.com/pages/functions/pricing/) are free and unlimited, but the broad proxy still invokes a Worker for site and asset requests. Workers and Pages Functions share a [100,000 requests/day allowance](https://developers.cloudflare.com/workers/platform/pricing/#workers), with a separate 10 ms CPU limit per invocation. |
+| Pages + Workers Paid | Static Pages serving remains free. [Workers Paid Standard](https://developers.cloudflare.com/workers/platform/pricing/#workers) starts at $5/account/month, with 10 million requests and 30 million CPU-ms included per month. Overages are $0.30 per additional million requests and $0.02 per additional million CPU-ms. |
+| Pages on Cloudflare Pro (optional zone upgrade) | [Cloudflare Pro](https://www.cloudflare.com/plans/) is $25/month billed monthly or $20/month billed annually. It raises [Pages build quotas](https://developers.cloudflare.com/pages/platform/limits/) to 5,000 builds/month and five concurrent builds. This is separate from Workers Paid; don't buy it solely to raise Worker execution limits. |
 
 Measure peak account-wide Worker requests (including assets, bots and other
 Workers), CPU and builds rather than estimating from visits alone. If free
